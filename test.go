@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func main() {
 	welcome()
+	start := time.Now()
 	threshold := userRange()
 	rand.New(rand.NewSource(int64(threshold)))
 	number := generateNumber(threshold)
@@ -16,7 +18,12 @@ func main() {
 		fmt.Scan(&guess)
 		giveHint(guess, number)
 	}
-	goodbye() // Corrected the function name
+	end := time.Now()
+	timeRum := timeRun(start, end)
+
+	fmt.Printf("Time elapsed: %.2f", timeRum.Seconds())
+	fmt.Println(" seconds")
+	goodbye()
 }
 
 func userRange() int {
@@ -37,13 +44,17 @@ func giveHint(number int, target int) {
 }
 
 func generateNumber(number int) int {
-	return rand.Intn(number) + 1 // Adjusted to generate numbers between 1 and the threshold
+	return rand.Intn(number) + 1
 }
 
-func goodbye() { // Corrected the function name
+func goodbye() {
 	fmt.Println("Thank you for playing my guessing game")
 }
 
 func welcome() {
 	fmt.Println("Welcome to the guessing game")
+}
+
+func timeRun(start time.Time, end time.Time) time.Duration {
+	return end.Sub(start)
 }
