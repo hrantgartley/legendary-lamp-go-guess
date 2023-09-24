@@ -58,3 +58,7 @@ func welcome() {
 func timeRun(start time.Time, end time.Time) time.Duration {
 	return end.Sub(start)
 }
+
+func empty() {
+	fmt.Println("Hi")
+}
